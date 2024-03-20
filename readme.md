@@ -2,8 +2,6 @@
 
 A work in progress collection of tools working with [jsoncanvas](https://jsoncanvas.org/) files.
 
-
-
 ## Usage
 
 ### Canvas stats

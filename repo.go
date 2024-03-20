@@ -5,6 +5,7 @@ import (
 	"os"
 	"sync"
 
+	"github.com/rs/zerolog/log"
 	"github.com/supersonicpineapple/go-jsoncanvas"
 	"github.com/supersonicpineapple/go-jsoncanvas/canvas"
 )
@@ -33,8 +34,11 @@ func NewRepo(path string) (*Repo, error) {
 		if err != nil {
 			return nil, fmt.Errorf("can't parse canvas file %s: %w", path, err)
 		}
+
+		log.Trace().Str("path", path).Msg("found canvas")
 		r.canvases[path] = c
 	}
+	log.Debug().Int("n", len(r.canvases)).Msg("found canvases")
 
 	return &r, nil
 }
@@ -52,8 +56,10 @@ func (r *Repo) Reset() error {
 			return fmt.Errorf("can't parse canvas file %s: %w", path, err)
 		}
 
+		log.Trace().Str("path", path).Msg("reset canvas")
 		r.canvases[path] = c
 	}
+	log.Debug().Int("n", len(r.canvases)).Msg("reset canvases")
 
 	return nil
 }
@@ -71,8 +77,11 @@ func (r *Repo) Commit() error {
 
 		if err := jsoncanvas.EncodeFile(c, path); err != nil {
 			return fmt.Errorf("can't encode to file: %w", err)
+		} else {
+			log.Trace().Str("path", path).Msg("successfully saved canvas")
 		}
 	}
+	log.Debug().Int("n", len(r.canvases)).Msg("successfully saved canvases")
 
 	return nil
 }
