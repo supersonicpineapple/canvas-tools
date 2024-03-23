@@ -6,8 +6,9 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/spf13/cobra"
 
-	"github.com/supersonicpineapple/canvas-tools"
 	"github.com/supersonicpineapple/go-jsoncanvas/canvas"
+
+	"github.com/supersonicpineapple/canvas-tools"
 )
 
 var SampleCanvasCmd = &cobra.Command{
@@ -33,6 +34,7 @@ var SampleCanvasCmd = &cobra.Command{
 			barNode,
 		)
 
+		// add a group that encapsulates all nodes.
 		b := canvas_tools.NodesBoundingBox(c.Nodes)
 		groupNode := canvas.NewNode().SetGroup("Test Group").
 			SetWidth(b.Width() + canvas.DefaultGap).SetHeight(b.Height() + canvas.DefaultGap).

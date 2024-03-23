@@ -37,12 +37,6 @@ var StatCmd = &cobra.Command{
 
 		fmt.Printf("\tEdges: %d\n", len(c.Edges))
 
-		b := canvas_tools.NodesBoundingBox(c.Nodes)
-
-		fmt.Printf("\n\tMeta:\n")
-		fmt.Printf("\t\tArea: %d pixel² %v\n", b.Area(), b)
-		fmt.Printf("\t\tNodes density: %f\n", float64(len(c.Nodes)*1000000)/float64(b.Area()))
-
 		return nil
 	},
 }

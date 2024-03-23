@@ -61,7 +61,3 @@ func (b *Box) Width() int {
 func (b *Box) Height() int {
 	return b.BotRight.Y - b.TopLeft.Y
 }
-
-func (b *Box) Area() int {
-	return b.Width() * b.Height()
-}
