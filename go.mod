@@ -6,7 +6,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1
 	github.com/rs/zerolog v1.32.0
 	github.com/spf13/cobra v1.8.0
-	github.com/supersonicpineapple/go-jsoncanvas v0.0.0-20240319223604-4f43531592be
+	github.com/supersonicpineapple/go-jsoncanvas v0.0.0-20240323133339-233662d1418e
 )
 
 require (

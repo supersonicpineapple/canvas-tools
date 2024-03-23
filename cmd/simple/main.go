@@ -10,6 +10,7 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/supersonicpineapple/canvas-tools/commands/canvas"
+	"github.com/supersonicpineapple/canvas-tools/commands/example"
 )
 
 var (
@@ -51,6 +52,7 @@ func main() {
 	fs.IntVar(&logLevel, "log-level", 1, "Set log level: panic=5;fatal=4;error=3;warn=2;info=1(default);debug=0;trace=-1")
 
 	rootCmd.AddCommand(canvas.Cmd)
+	rootCmd.AddCommand(example.Cmd)
 
 	if err := rootCmd.Execute(); err != nil {
 		_, _ = fmt.Fprintf(os.Stderr, "%v", err)

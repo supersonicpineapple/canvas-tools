@@ -16,3 +16,8 @@ Canvas: sample.canvas
                 Group nodes: 0
         Edges: 1
 ```
+
+With human readable trace-level logging:
+```
+$ go run ./cmd/simple --human-readable --logging --log-level -1 canvas ...
+```

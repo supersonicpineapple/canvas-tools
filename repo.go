@@ -1,11 +1,13 @@
 package canvas_tools
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"sync"
 
 	"github.com/rs/zerolog/log"
+
 	"github.com/supersonicpineapple/go-jsoncanvas"
 	"github.com/supersonicpineapple/go-jsoncanvas/canvas"
 )
@@ -30,15 +32,41 @@ func NewRepo(path string) (*Repo, error) {
 		// TODO: search for canvas files in dir and read them all in
 		return nil, fmt.Errorf("got dir %s, please specify a file instead", path)
 	} else {
-		c, err := jsoncanvas.DecodeFile(path)
+		c := new(canvas.Canvas)
+
+		c, err = jsoncanvas.DecodeFile(path)
 		if err != nil {
 			return nil, fmt.Errorf("can't parse canvas file %s: %w", path, err)
 		}
-
 		log.Trace().Str("path", path).Msg("found canvas")
+
 		r.canvases[path] = c
 	}
 	log.Debug().Int("n", len(r.canvases)).Msg("found canvases")
+
+	return &r, nil
+}
+
+func NewRepoFromCanvas(c *canvas.Canvas, path string, overwrite bool) (*Repo, error) {
+	info, err := os.Stat(path)
+	if err != nil && !errors.Is(err, os.ErrNotExist) {
+		return nil, fmt.Errorf("can't stat file: %w", err)
+	}
+	if info != nil && !overwrite {
+		return nil, fmt.Errorf("file already exists: %s", path)
+	}
+
+	f, err := os.OpenFile(path, os.O_CREATE|os.O_RDWR|os.O_TRUNC, 0664)
+	if err != nil {
+		return nil, fmt.Errorf("can't create file: %w", err)
+	}
+	f.Close()
+
+	r := Repo{
+		mutex:    new(sync.RWMutex),
+		canvases: make(map[string]*canvas.Canvas),
+	}
+	r.canvases[path] = c
 
 	return &r, nil
 }

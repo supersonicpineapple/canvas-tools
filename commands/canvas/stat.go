@@ -7,8 +7,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/supersonicpineapple/canvas-tools"
 	"github.com/supersonicpineapple/go-jsoncanvas/canvas"
+
+	"github.com/supersonicpineapple/canvas-tools"
 )
 
 var StatCmd = &cobra.Command{
@@ -35,6 +36,13 @@ var StatCmd = &cobra.Command{
 		fmt.Print(nodeDetails(c))
 
 		fmt.Printf("\tEdges: %d\n", len(c.Edges))
+
+		b := canvas_tools.NodesBoundingBox(c.Nodes)
+
+		fmt.Printf("\n\tMeta:\n")
+		fmt.Printf("\t\tArea: %d pixel² %v\n", b.Area(), b)
+		fmt.Printf("\t\tNodes density: %f\n", float64(len(c.Nodes)*1000000)/float64(b.Area()))
+
 		return nil
 	},
 }
@@ -45,5 +53,6 @@ func nodeDetails(c *canvas.Canvas) string {
 	buf.WriteString(fmt.Sprintf("\t\tFile nodes: %d\n", len(c.FilterNodes().ByType("file"))))
 	buf.WriteString(fmt.Sprintf("\t\tLink nodes: %d\n", len(c.FilterNodes().ByType("link"))))
 	buf.WriteString(fmt.Sprintf("\t\tGroup nodes: %d\n", len(c.FilterNodes().ByType("group"))))
+
 	return buf.String()
 }

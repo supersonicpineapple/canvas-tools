@@ -34,3 +34,6 @@ go.work
 ### Global/JetBrains.gitignore
 # User-specific stuff
 .idea/*
+
+local_lib/*
+data/*
