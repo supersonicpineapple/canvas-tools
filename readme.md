@@ -6,7 +6,7 @@ A work in progress collection of tools working with [jsoncanvas](https://jsoncan
 
 ### Example: commands/example/simple-canvas.go
 
-The `example simple-canvas` command makes use of the [go-jsoncanvas](https://github.com/supersonicpineapple/go-jsoncanvas) library.
+The [simple-canvas](./commands/example/sample-canvas.go) command makes use of the [go-jsoncanvas](https://github.com/supersonicpineapple/go-jsoncanvas) library.
 
 ```
 $ go run ./cmd/simple example sample-canvas
